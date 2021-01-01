@@ -1,9 +1,18 @@
 # GQ
 GQ Backend Developer Assessment
 
+# Deploued on AWS
+
+Created seperate private repo and deployed this project on AWS added AWS Postgres RDS.
+# Functionality
+> User registration
+> User login
+> Created own mems API. url: http://www.scloud24.com/api/photogallary/v1/getall/
+
+
 
 # Home page url
-www.scloud.com
+www.scloud24.com
 # Assignment url
 > http://www.scloud24.com/userAccount/login/
 
