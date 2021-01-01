@@ -22,11 +22,12 @@ GQ Backend Developer Assessment
 > source env/bin/activate         # Activate environment</br>
 
 
-### 8. Install main required packages from requirements.txt
-> pip3 install -r requirements.txt 
+### 8.  requirements.txt
+> pip freeze > requirements.txt     --- Create requirements
+> pip3 install -r requirements.txt  --- Install all apckage
 
 ### 9. Clone project
-> git clone https://github.com/shingareshubham/papi_engine.git
+> git clone https://github.com/shingareshubham/gq.git
 
 
 # Check which port is running for which service
@@ -50,30 +51,56 @@ sudo nano /etc/apache2/sites-available/djangoprojectgq.conf
 	ServerAdmin shingareshubham@gmail.com
 	ServerName scloud24.com
 	ServerAlias www.scloud24.com
-	DocumentRoot /home/ubuntu/GQ
+	DocumentRoot /home/ubuntu/gq
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-	Alias /static /home/ubuntu/GQ/static
-	<Directory /home/ubuntu/GQ/static>
+	Alias /static /home/ubuntu/gq/static
+	<Directory /home/ubuntu/gq/static>
 		Require all granted
 	</Directory>
 
-	Alias /static /home/ubuntu/GQ/media
-	<Directory /home/ubuntu/GQ/media>
+	Alias /static /home/ubuntu/gq/media
+	<Directory /home/ubuntu/gq/media>
 		Require all granted
 	</Directory>
 
-	<Directory /home/ubuntu/GQ/grayquest>
+	<Directory /home/ubuntu/gq/grayquest>
 		<Files wsgi.py>
 			Require all granted
 		</Files>
 	</Directory>
 
 	WSGIDaemonProcess papi_engine python-path=/home/ubuntu/GQ python-home=/home/ubuntu/GQ/env
-	WSGIProcessGroup GQ
-	WSGIScriptAlias / /home/ubuntu/GQ/grayquest/wsgi.py
+	WSGIProcessGroup gq
+	WSGIScriptAlias / /home/ubuntu/gq/grayquest/wsgi.py
 </VirtualHost>
 
 # Active conf file
 > sudo a2ensite djangoprojectgq.conf
+
+
+
+<VirtualHost *:80>
+        ServerAdmin shingareshubham@gmail.com
+        ServerName scloud24.com
+        ServerAlias www.scloud24.com
+        DocumentRoot /home/ubuntu/gq
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        Alias /static /home/ubuntu/gq/static
+        <Directory /home/ubuntu/gq/static>
+                Require all granted
+        </Directory>
+        <Directory /home/ubuntu/gq/grayquest>
+                <Files wsgi.py>
+                        Require all granted
+                </Files>
+        </Directory>
+
+        WSGIDaemonProcess gq python-path=/home/ubuntu/gq python-home=/home/ubuntu/gq/env
+        WSGIProcessGroup gq
+        WSGIScriptAlias / /home/ubuntu/gq/grayquest/wsgi.py
+</VirtualHost>
+
