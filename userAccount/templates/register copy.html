@@ -1,0 +1,95 @@
+{%load static%}
+
+<link rel="stylesheet" href="{% static 'bootstrap45/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<script src="{% static 'bootstrap45/js/bootstrap.min.js' %}"></script>
+
+
+<div class="container">
+  <div class="row"><br><br>
+          <form method="POST" action="">
+            {% csrf_token %}
+            {{ data.form.as_table }}
+            <input type="submit" value="Submit">  
+            <p class="text-center">Have an account? <a href="{% url 'loginPage' %}">Log In</a> </p> 
+          </form>            
+          {{ form.error }} 
+    </div>
+  </div>
+</div> 
+<!--container end.//-->
+
+
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap45/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<script src="{% static 'bootstrap45/js/bootstrap.min.js' %}"></script>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col">
+			<br><br>
+			<div class="jumbotron">
+			<form method="POST" action="">
+				{% csrf_token %}
+				<div class="row">
+				  <div class="col">
+					<label for="username">User Name:</label>
+					{{ data.form.username }}
+				  </div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col">
+					  <label for="email">Email id:</label>
+					  {{ data.form.email }}
+					</div>
+				  </div>
+				
+				<br>
+				<div class="row">
+					<div class="col">
+						<label for="password1">Password:</label>
+						{{ data.form.password1 }}
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col">
+						<label for="password2">Confarm Password:</label>
+						{{ data.form.password2 }}
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary mt-3 btn-block">Submit</button>
+			  </form>
+			  {{ data.form.error }}
+			  <p class="text-center">Have an account? <a href="{% url 'loginPage' %}">Log In</a> </p>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+</div>
+</body>
+
+
+<form method="post">
+  {% csrf_token %}
+  {% for field in data.form %}
+    <p>
+    {{ field.label_tag }}<br>
+    {{ field }}
+    {% if field.help_text %}
+      <small style="color: grey">{{ field.help_text }}</small>
+    {% endif %}
+    {% for error in field.errors %}
+      <p style="color: red">{{ error }}</p>
+    {% endfor %}
+    </p>
+  {% endfor %}
+  <button type="submit">Register user</button>
+  <p class="text-center">Have an account? <a href="{% url 'loginPage' %}">Log In</a> </p> 
+  </form>         

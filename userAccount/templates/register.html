@@ -1,0 +1,38 @@
+{%load static%}
+
+<link rel="stylesheet" href="{% static 'bootstrap45/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<script src="{% static 'bootstrap45/js/bootstrap.min.js' %}"></script>
+
+
+<div class="container">
+	  <div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<br>
+			<div class="jumbotron card">
+				<br>
+				<h1 class="text-center">Registration Form</h1>
+				<form method="post">
+					{% csrf_token %}
+					{% for field in data.form %}
+					<p>
+					{{ field.label_tag }}<br>
+					{{ field }}
+					{% if field.help_text %}
+						<small style="color: grey">{{ field.help_text }}</small>
+					{% endif %}
+					{% for error in field.errors %}
+						<p style="color: red">{{ error }}</p>
+					{% endfor %}
+					</p>
+					{% endfor %}
+					<button type="submit" class="btn btn-primary mt-3 btn-block">Register User</button>
+					<p class="text-center">Have an account? <a href="{% url 'loginPage' %}">Log In</a> </p> 
+					</form>
+			</div>
+		</div>
+		<div class="col-sm-3"></div>
+	  </div>
+</div>
+<!--container end.//-->
