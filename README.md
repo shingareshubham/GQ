@@ -2,6 +2,11 @@
 GQ Backend Developer Assessment
 
 
+# Home page url
+www.scloud.com
+# Assignment url
+> http://www.scloud24.com/userAccount/login/
+
 ## AWS Ubuntu instance
 
 ### 1. Connect EC2 instance using ssh
@@ -46,61 +51,34 @@ GQ Backend Developer Assessment
 > sudo a2enmod wsgi
 
 # create django_conf file in apache
-sudo nano /etc/apache2/sites-available/djangoprojectgq.conf
+sudo nano /etc/apache2/sites-available/scloud24.conf
+
 <VirtualHost *:80>
 	ServerAdmin shingareshubham@gmail.com
 	ServerName scloud24.com
 	ServerAlias www.scloud24.com
-	DocumentRoot /home/ubuntu/gq
+	DocumentRoot /home/ubuntu/scloud24/papi
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-	Alias /static /home/ubuntu/gq/static
-	<Directory /home/ubuntu/gq/static>
+	Alias /static /home/ubuntu/scloud24/papi/static
+	<Directory /home/ubuntu/scloud24/papi/static>
 		Require all granted
 	</Directory>
 
-	Alias /static /home/ubuntu/gq/media
-	<Directory /home/ubuntu/gq/media>
+	Alias /static /home/ubuntu/scloud24/papi/media
+	<Directory /home/ubuntu/scloud24/papi/media>
 		Require all granted
 	</Directory>
 
-	<Directory /home/ubuntu/gq/grayquest>
+	<Directory /home/ubuntu/scloud24/papi/papi>
 		<Files wsgi.py>
 			Require all granted
 		</Files>
 	</Directory>
 
-	WSGIDaemonProcess papi_engine python-path=/home/ubuntu/GQ python-home=/home/ubuntu/GQ/env
-	WSGIProcessGroup gq
-	WSGIScriptAlias / /home/ubuntu/gq/grayquest/wsgi.py
-</VirtualHost>
-
-# Active conf file
-> sudo a2ensite djangoprojectgq.conf
-
-
-
-<VirtualHost *:80>
-        ServerAdmin shingareshubham@gmail.com
-        ServerName scloud24.com
-        ServerAlias www.scloud24.com
-        DocumentRoot /home/ubuntu/gq
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-        Alias /static /home/ubuntu/gq/static
-        <Directory /home/ubuntu/gq/static>
-                Require all granted
-        </Directory>
-        <Directory /home/ubuntu/gq/grayquest>
-                <Files wsgi.py>
-                        Require all granted
-                </Files>
-        </Directory>
-
-        WSGIDaemonProcess gq python-path=/home/ubuntu/gq python-home=/home/ubuntu/gq/env
-        WSGIProcessGroup gq
-        WSGIScriptAlias / /home/ubuntu/gq/grayquest/wsgi.py
+	WSGIDaemonProcess scloud24 python-path=/home/ubuntu/scloud24/papi python-home=/home/ubuntu/scloud24/env
+	WSGIProcessGroup scloud24
+	WSGIScriptAlias / /home/ubuntu/scloud24/papi/papi/wsgi.py
 </VirtualHost>
 
